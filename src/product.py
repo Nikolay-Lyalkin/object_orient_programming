@@ -1,4 +1,5 @@
-# from src.category import Category
+from typing import Any
+
 
 class Product:
     name: str
@@ -6,37 +7,29 @@ class Product:
     price: float
     quantity: int
 
-    def __init__(self, name, description, price, quantity):
+    def __init__(self, name: str, description: str, price: float, quantity: int) -> None:
         self.name = name
         self.description = description
         self.__price = price
         self.quantity = quantity
 
     @classmethod
-    def new_product(cls, dict_product):
-        # for product in category:
-        #     if dict_product["name"] == product.name:
-        #         product.quantity += dict_product["quantity"]
-        #         if dict_product["price"] > product.price:
-        #             product.price = dict_product["price"]
+    def new_product(cls, dict_product: dict) -> Any:
+
         return Product(**dict_product)
 
     @property
-    def price(self):
+    def price(self) -> float:
         return self.__price
 
     @price.setter
-    def price(self, price_product):
+    def price(self, price_product: int) -> Any:
         if price_product <= 0:
             print("Цена не должна быть нулевая или отрицательная")
         else:
+            if price_product < self.__price:
+                answer = input("Вы действительно хотите понизить цену? y-да/n-нет ")
+                if answer == "y":
+                    self.__price = price_product
+                self.__price = self.__price
             self.__price = price_product
-
-
-# pr1 = Product("apple", "green apple", 13, 12)
-# x = Category("apple", "green apple", [pr1])
-# print(x.products)
-# pr2 = Product.new_product({"name": "apple", "description": "green apple", "price": 13, "quantity": 12}, x.products)
-# print(x.products)
-# pr1.price = 0
-# print(pr1.price)
